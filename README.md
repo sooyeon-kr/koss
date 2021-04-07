@@ -1,6 +1,34 @@
-# 알고리즘 리뷰
+# 알고리즘 한 문제와 리뷰
 
+***
+## 리뷰
+방의 크기를 구하는 알고리즘으로, 표준 입력을 통해 테스트 케이스가 주어지는만큼 수행한다. 
+'+'는 벽, '.'은 빈방으로 표현한다.
 
+vector<vector<int>> 변수로 설정한 방의 크기를 받아와
+벽은 -1, 빈방은 0으로 초기화 한다.
+ 
+DFS를 이용하여 방의 크기를 구한다.
+
+map을 이용하여 방크기의 갯수를 구하여 출력한다.
+
+***
+### 입력예시
+3 3
+
++++
+
++.+
+
++++
+
+### 출력예시
+1
+
+1
+
+***
+## 코드
 ```
 #include <iostream>
 #include <vector>
@@ -15,6 +43,7 @@ int main()
 {
     int testCase;
     cin>>testCase;
+    
     while(testCase--)
     {
         int row, col, roomNum=1;
@@ -35,41 +64,31 @@ int main()
         }
 
         for(int i=0; i<row; i++)
-        {
             for(int k=0; k<col; k++)
             {
-                if(maps[i][k]==0){
+                if(maps[i][k]==0)
+                {
                     DFS(i,k,maps,roomNum);
-                    roomNum++;}
+                    roomNum++;
+                }
             }
-        }
-        
-        
-
-    map<int, int> sum; 
+               
+     
+    map<int, int, greater<int> > sum; 
     for(int i=0; i<row; i++)
-    {
         for(int k=0; k<col; k++)
         {
-            if(maps[i][k]>0){
+            if(maps[i][k]>0)
                 sum[maps[i][k]]++;
-            }
         }
-    }
-
-    vector <int> results;
-    for(auto e : sum){results.push_back(e.second);} //graph hash function 
-    sort(results.begin(), results.end());
-    reverse(results.begin(), results.end());
     
-    cout<<results.size()<<endl;
 
-    for(int i=0; i<results.size(); i++)
-        cout<<results[i]<<" ";
+    for(auto e : sum){
+        cout<<e.second<<" ";}
 
     cout<<endl;
-
     }
+    
     return 0;
 }
 
